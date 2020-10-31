@@ -10,9 +10,9 @@ import NavigationBar from './components/NavigationBar';
 function App() {
   return (
     <div className="App">
-      <NavigationBar />
-      <Container>
-        <Router>
+      <Router basename="/covid19dashboard">
+        <NavigationBar />
+        <Container>
           <Switch>
             <Route exact path='/'>
               <Dashboard />
@@ -21,8 +21,8 @@ function App() {
               <About />
             </Route>
           </Switch>
-        </Router>
-      </Container>
+        </Container>
+      </Router>
     </div>
   );
 }
