@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Form, Col } from 'react-bootstrap';
-import './Dashboard.css';
 import { LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Line, Legend } from 'recharts'
-
+import './Dashboard.css';
 
 const BASE_URL = 'https://disease.sh';
+const defaultCountry = 'Italy';
+const categoryColor = {
+  cases: "#FF0000",
+  deaths: "#252525",
+  recovered: "#62FF00"
+}
 
 function Dashboard(props) {
-  const categoryColor = {
-    cases: "#FF0000",
-    deaths: "#252525",
-    recovered: "#62FF00"
-  }
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [countries, setCountries] = useState({});
+  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
   const [countryData, setCountryData] = useState(undefined);
 
 
@@ -36,6 +37,8 @@ function Dashboard(props) {
             setIsLoaded(true);
             setError(error);
             setCountries(countries);
+            setSelectedCountry(countries[0]);
+            fetchCountryData(countries[0]);
           },
           (e) => {
             setIsLoaded(true);
@@ -83,7 +86,8 @@ function Dashboard(props) {
   }
 
 
-  if (!isLoaded) {
+  if (!isLoaded || !countryData) {
+    selectedCountry && fetchCountryData(selectedCountry);
     return (
       <>
         <Alert variant="light">
@@ -102,12 +106,15 @@ function Dashboard(props) {
               <Form.Control
                 as="select"
                 custom
+                value={selectedCountry}
+                defaultValue={defaultCountry}
                 onChange={e => {
-                  if (e.target.value)
+                  if (e.target.value) {
+                    setSelectedCountry(e.target.value);
                     fetchCountryData(e.target.value);
+                  }
                 }}
               >
-                <option value='' selected={true}>- Select a country -</option>
                 {countries && countries.countries &&
                   countries.countries.map((country, idx) => {
                     return (<option value={country}>{country}</option>)
