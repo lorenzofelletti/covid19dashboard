@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Form, Col } from 'react-bootstrap';
 import { LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Line, Legend } from 'recharts'
 import './Dashboard.css';
+import {darkTheme} from './Themes';
 
 const BASE_URL = 'https://disease.sh';
 const defaultCountry = 'Italy';
@@ -114,6 +115,13 @@ function Dashboard(props) {
                     fetchCountryData(e.target.value);
                   }
                 }}
+                style={
+                  props.theme === 'light' ? {} : {
+                    backgroundColor: darkTheme.backround,
+                    color: darkTheme.text,
+                    borderColor: 'gray'
+                    }
+                }
               >
                 {countries && countries.countries &&
                   countries.countries.map((country, idx) => {
@@ -123,11 +131,11 @@ function Dashboard(props) {
             </Col>
           </Form.Group>
         </Form>
-        <ResponsiveContainer width='100%' height={500}>
-          <LineChart>
-            <Tooltip />
+        <ResponsiveContainer width='100%' height={500} >
+          <LineChart margin={{ left: 25, right: 4 }}>
+            <Tooltip formatter={(value) => new Intl.NumberFormat('it').format(value)} />
             <XAxis dataKey="date" allowDuplicatedCategory={false}></XAxis>
-            <YAxis type="number" dataKey="number"></YAxis>
+            <YAxis type="number" dataKey="number" tickFormatter={(value) => new Intl.NumberFormat('it').format(value)} ></YAxis>
             <Legend />
             {countryData && countryData.map(c => (
               <Line type='monotone' dataKey="number" data={c.data} name={c.name} key={c.name} stroke={categoryColor[c.name]} />
