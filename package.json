@@ -1,7 +1,7 @@
 {
   "name": "covid19dashboard",
   "version": "0.1.0",
-  "homepage": "http://lorenzofelletti.github.io/covid19dashboard",
+  "homepage": "https://lorenzofelletti.github.io/covid19dashboard",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",

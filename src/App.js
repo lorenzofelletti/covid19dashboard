@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import Dashboard from './components/Dashboard';
 import { About } from './components/About';
@@ -14,10 +14,10 @@ function App() {
       <Container>
         <Router>
           <Switch>
-            <Route exact path='/covid19dashboard'>
+            <Route exact path='/'>
               <Dashboard />
             </Route>
-            <Route path='/covid19dashboard/about'>
+            <Route epath='/about'>
               <About />
             </Route>
           </Switch>
