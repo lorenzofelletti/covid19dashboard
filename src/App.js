@@ -20,7 +20,7 @@ function App() {
             <Route exact path='/covid19dashboard'>
               <Dashboard />
             </Route>
-            <Route path='/about'>
+            <Route path='/covid19dashboard/about'>
               <About />
             </Route>
           </Switch>

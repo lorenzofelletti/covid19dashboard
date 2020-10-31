@@ -4,7 +4,7 @@ import './Dashboard.css';
 import { LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Line, Legend } from 'recharts'
 
 
-const BASE_URL = 'http://disease.sh';
+const BASE_URL = 'https://disease.sh';
 
 function Dashboard(props) {
   const categoryColor = {
