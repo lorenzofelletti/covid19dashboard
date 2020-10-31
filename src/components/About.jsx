@@ -1,4 +1,5 @@
 import React from 'react';
+import './About.css';
 
 export const About = () => (
   <>
@@ -9,6 +10,8 @@ export const About = () => (
     <p>
       See the current Covid 19 situation.
     </p>
+    <h3>Whoami</h3>
+    <p>My name is Lorenzo Felletti and I'm a computer engineering student ad the University of Bologna.</p>
   </>
 )
 
