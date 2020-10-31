@@ -14,9 +14,6 @@ function App() {
       <Container>
         <Router>
           <Switch>
-            <Route exact path='/'>
-              <Dashboard />
-            </Route>
             <Route exact path='/covid19dashboard'>
               <Dashboard />
             </Route>

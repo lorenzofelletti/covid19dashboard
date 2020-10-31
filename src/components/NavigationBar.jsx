@@ -10,7 +10,7 @@ function NavigationBar(props) {
 
   return (
     <Navbar id="navigation-bar" collapseOnSelect sticky="top" expand="lg" bg="light" variant="light">
-      <Navbar.Brand href="/">Covid19Dashboard</Navbar.Brand>
+      <Navbar.Brand href='/covid19dashboard'>Covid19Dashboard</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
