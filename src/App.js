@@ -7,11 +7,13 @@ import Dashboard from './components/Dashboard';
 import { About } from './components/About';
 import NavigationBar from './components/NavigationBar';
 
+const BASENAME = "/covid19dashboard"
+
 function App() {
   return (
     <div className="App">
-      <Router basename="/covid19dashboard">
-        <NavigationBar />
+      <Router basename={BASENAME}>
+        <NavigationBar basename={BASENAME} />
         <Container>
           <Switch>
             <Route exact path='/'>
