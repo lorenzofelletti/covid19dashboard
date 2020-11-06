@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Form, Col } from 'react-bootstrap';
 import { LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Line, Legend } from 'recharts'
 import './Dashboard.css';
-import {darkTheme} from './Themes';
+import { darkTheme } from './Themes';
 
 const BASE_URL = 'https://disease.sh';
 const defaultCountry = 'Italy';
+const defaultLastDays = '30';
 const categoryColor = {
   cases: "#FF0000",
   deaths: "#252525",
@@ -18,6 +19,7 @@ function Dashboard(props) {
   const [countries, setCountries] = useState({});
   const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
   const [countryData, setCountryData] = useState(undefined);
+  const [all, setAll] = useState(false);
 
 
   useEffect(() => {
@@ -39,7 +41,7 @@ function Dashboard(props) {
             setError(error);
             setCountries(countries);
             setSelectedCountry(countries[0]);
-            fetchCountryData(countries[0]);
+            fetchCountryData(countries[0], all);
           },
           (e) => {
             setIsLoaded(true);
@@ -49,8 +51,10 @@ function Dashboard(props) {
     }
   }, []);
 
-  function fetchCountryData(country) {
-    fetch(`${BASE_URL}/v3/covid-19/historical/${country}?lastdays=30`, {
+  function fetchCountryData(country, all) {
+    if (!country) return;
+    let days = (all ? 'all' : defaultLastDays);
+    fetch(`${BASE_URL}/v3/covid-19/historical/${country}?lastdays=${days}`, {
       headers: {
         'accept': 'application/json'
       }
@@ -88,7 +92,7 @@ function Dashboard(props) {
 
 
   if (!isLoaded || !countryData) {
-    selectedCountry && fetchCountryData(selectedCountry);
+    selectedCountry && fetchCountryData(selectedCountry, all);
     return (
       <>
         <Alert variant="light">
@@ -112,7 +116,7 @@ function Dashboard(props) {
                 onChange={e => {
                   if (e.target.value) {
                     setSelectedCountry(e.target.value);
-                    fetchCountryData(e.target.value);
+                    fetchCountryData(e.target.value, all);
                   }
                 }}
                 style={
@@ -120,7 +124,7 @@ function Dashboard(props) {
                     backgroundColor: darkTheme.backround,
                     color: darkTheme.text,
                     borderColor: 'gray'
-                    }
+                  }
                 }
               >
                 {countries && countries.countries &&
@@ -130,12 +134,20 @@ function Dashboard(props) {
               </Form.Control>
             </Col>
           </Form.Group>
+          <Form.Group as={Form.Row} controlId="allDays">
+            <Form.Check type="checkbox" label="All history data" onChange={e => {
+              if (selectedCountry) {
+                fetchCountryData(selectedCountry, !all);
+                setAll(!all);
+              }
+            }} />
+          </Form.Group>
         </Form>
         <ResponsiveContainer width='100%' height={500} >
           <LineChart margin={{ left: 25, right: 4 }}>
             <Tooltip formatter={(value) => new Intl.NumberFormat('it').format(value)} />
             <XAxis dataKey="date" allowDuplicatedCategory={false}></XAxis>
-            <YAxis type="number" dataKey="number" tickFormatter={(value) => new Intl.NumberFormat('it').format(value)} ></YAxis>
+            <YAxis type="number" dataKey="number" tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} ></YAxis>
             <Legend />
             {countryData && countryData.map(c => (
               <Line type='monotone' dataKey="number" data={c.data} name={c.name} key={c.name} stroke={categoryColor[c.name]} />
