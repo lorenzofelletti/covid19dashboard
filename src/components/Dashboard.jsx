@@ -3,7 +3,7 @@ import { Tabs, Tab } from 'react-bootstrap';
 import './Dashboard.css';
 import Historical from './Historical';
 import Daily from './Daily';
-import { darkTheme } from './Themes'
+import { lightTheme, darkTheme } from './Themes'
 
 function Dashboard(props) {
 
@@ -34,10 +34,10 @@ function Dashboard(props) {
           }
 
           a {
-            color: ${darkTheme.text}
+            color: ${props.theme === 'dark' ? darkTheme.text : lightTheme.text}
           }
           a:hover {
-            color: ${darkTheme.text}
+            color: ${props.theme === 'dark' ? darkTheme.text : lightTheme.text}
           }
 
           .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
