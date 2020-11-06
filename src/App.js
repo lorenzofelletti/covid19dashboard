@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -15,10 +15,6 @@ const BASENAME = "/covid19dashboard";
 
 function App() {
   const [theme, themeToggler, mountedComponent] = useDarkMode();
-
-
-  /*useEffect(() => {
-  }, [])*/
 
   if(!mountedComponent)
     return <div/>;

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, Button, Form } from 'react-bootstrap';
 import { func, string } from 'prop-types';
-import styled from 'styled-components';
-//import { lightNavbarTheme, darkNavbarTheme } from './Themes'
 import './NavigationBar.css';
 
 /**
