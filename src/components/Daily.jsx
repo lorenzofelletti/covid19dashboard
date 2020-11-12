@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Form, Col } from 'react-bootstrap';
-import { BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend } from 'recharts'
+import { BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend, Brush } from 'recharts'
 import './Dashboard.css';
 import { darkTheme } from './Themes';
 
@@ -160,6 +160,7 @@ function Daily(props) {
             <XAxis dataKey="date"></XAxis>
             <YAxis type="number" tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} ></YAxis>
             <Legend />
+            <Brush dataKey="date" stroke={props.theme === "dark" ? darkTheme.text : ""} fill={props.theme === "dark" ? darkTheme.backround : "#fff"} />
             <Bar dataKey="cases" name={'cases'} key={'cases'} fill={categoryColor['cases']} />
             <Bar dataKey="deaths" name={'deaths'} key={'deaths'} fill={categoryColor['deaths']} />
             <Bar dataKey="recovered" name={'recovered'} key={'recovered'} fill={categoryColor['recovered']} />
