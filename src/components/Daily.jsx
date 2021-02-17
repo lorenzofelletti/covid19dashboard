@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Alert, Form, Col } from 'react-bootstrap';
-import { BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend, Brush } from 'recharts'
+import { BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend, Brush } from 'recharts';
 import './Dashboard.css';
+import { Loading } from "./Loading";
 import { darkTheme } from './Themes';
 
 const BASE_URL = 'https://disease.sh';
@@ -118,10 +119,7 @@ function Daily(props) {
     selectedCountry && fetchCountryData(selectedCountry);
     return (
       <>
-        <Alert variant="light">
-          <Alert.Heading>I'm loading the data</Alert.Heading>
-          <p>Please be patient...</p>
-        </Alert>
+        <Loading />
       </>
     )
   } else {

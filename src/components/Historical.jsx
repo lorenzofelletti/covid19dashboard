@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Alert, Form, Col } from 'react-bootstrap';
 import CustomLineCharts from './CustomLineChart';
 import './Dashboard.css';
+import { Loading } from "./Loading";
 import { darkTheme } from './Themes';
 
 const BASE_URL = 'https://disease.sh';
@@ -91,10 +92,7 @@ function Historical(props) {
     fetchCountryData(selectedCountry);
     return (
       <>
-        <Alert variant="light">
-          <Alert.Heading>I'm loading the data</Alert.Heading>
-          <p>Please be patient...</p>
-        </Alert>
+        <Loading />
       </>
     )
   } else {
