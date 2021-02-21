@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+
 import { Tabs, Tab } from 'react-bootstrap';
 import './Dashboard.css';
 import Historical from './Historical';
@@ -46,12 +47,10 @@ function Dashboard(props) {
   }
 
   useEffect(() => {
-    console.log(isLoaded);
     if (!isLoaded) fetchCountries('cases');
   }, [isLoaded, country]);
 
   if (countries) {
-    console.log(country);
     return (
       <>
         <>

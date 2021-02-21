@@ -19,7 +19,7 @@ function Daily(props) {
   const [countryData, setCountryData] = useState(undefined);
 
   function fetchCountryData(country) {
-    setIsLoaded(true);
+    if (!country) return;
     fetch(`${BASE_URL}/v3/covid-19/historical/${country}?lastdays=${days}`, {
       headers: {
         'accept': 'application/json'
@@ -66,6 +66,7 @@ function Daily(props) {
               dataFinal.push(datum);
             }
             countryDataFormatted = dataFinal;
+            setIsLoaded(true);
             setCountryData(countryDataFormatted);
           }
           else {
