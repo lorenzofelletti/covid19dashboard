@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import CustomLineCharts from './CustomLineChart';
+import CustomLineCharts from './charts/CustomLineChart';
 import './Dashboard.css';
 import { Loading } from "./Loading";
 

@@ -4,14 +4,10 @@ import './Dashboard.css';
 import { Loading } from "./Loading";
 import { darkTheme } from './Themes';
 
+import categoryColor from "./colors/colorsConsts";
 const BASE_URL = 'https://disease.sh';
 const days = 'all';
 
-const categoryColor = {
-  cases: "#FF0000",
-  deaths: "#252525",
-  recovered: "#62FF00"
-}
 
 function Daily(props) {
   const [country, setCountry] = useState(props.country);
@@ -103,7 +99,7 @@ function Daily(props) {
           <BarChart margin={{ left: 25, right: 4 }} data={countryData}>
             <Tooltip formatter={(value) => new Intl.NumberFormat('it').format(value)} />
             <XAxis dataKey="date"></XAxis>
-            <YAxis type="number" tickFormatter={(value) => new Intl.NumberFormat('en').format(value)} ></YAxis>
+            <YAxis type="number" tickFormatter={(value) => new Intl.NumberFormat('it').format(value)} ></YAxis>
             <Legend />
             <Brush dataKey="date" stroke={props.theme === "dark" ? darkTheme.text : ""} fill={props.theme === "dark" ? darkTheme.backround : "#fff"} />
             <Bar dataKey="cases" name={'cases'} key={'cases'} fill={categoryColor['cases']} />
