@@ -38,7 +38,7 @@ function Dashboard(props) {
             countries.countries.push(d.country);
           });
           setCountries(countries);
-          setCountry(countries[0]);
+          setCountry(defaultCountry);
         },
         (e) => {
           console.error(e);
@@ -50,12 +50,11 @@ function Dashboard(props) {
     if (!isLoaded) fetchCountries('cases');
   }, [isLoaded, country]);
 
-  if (countries) {
+  if (countries && country) {
     return (
       <>
-        <>
-          <style type="text/css">
-            {`
+        <style type="text/css">
+          {`
             .dark-tabs {
               background-color: ${darkTheme.backround};
               color: ${darkTheme.text};
@@ -82,8 +81,8 @@ function Dashboard(props) {
               border-radius: 0.25rem;
             }
             `}
-          </style>
-        </>
+        </style>
+
         <Form className='mt-3'>
           <Form.Group as={Form.Row} controlId="country">
             <Form.Label column sm={4} >Selected Country</Form.Label>
@@ -102,10 +101,8 @@ function Dashboard(props) {
                   }
                 }
               >
-                {countries && countries.countries &&
-                  countries.countries.map((country) => {
-                    return (<option value={country}>{country}</option>)
-                  })}
+                {countries?.countries?.map(
+                  (country) => (<option value={country}>{country}</option>))}
               </Form.Control>
             </Col>
           </Form.Group>
@@ -120,6 +117,7 @@ function Dashboard(props) {
             eventKey="cumulative"
             title="Cumulative"
             className={tabClassName}
+            mountOnEnter={true}
           >
             <Historical theme={props.theme} country={country} />
           </Tab>
@@ -127,6 +125,7 @@ function Dashboard(props) {
             eventKey="daily"
             title="Daily"
             className={tabClassName}
+            mountOnEnter={true}
           >
             <Daily theme={props.theme} country={country} />
           </Tab>

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend, Brush } from 'recharts';
 import './Dashboard.css';
 import { Loading } from "./Loading";
@@ -110,6 +112,11 @@ function Daily(props) {
       </>
     );
   }
+}
+
+Daily.propTypes = {
+  theme: PropTypes.string,
+  country: PropTypes.string.isRequired,
 }
 
 export default React.memo(Daily);

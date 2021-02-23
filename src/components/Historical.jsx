@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import CustomLineCharts from './charts/CustomLineChart';
 import './Dashboard.css';
@@ -75,6 +76,11 @@ function Historical(props) {
       </>
     );
   }
+}
+
+Historical.propTypes = {
+  theme: PropTypes.string,
+  country: PropTypes.string.isRequired,
 }
 
 export default React.memo(Historical);
