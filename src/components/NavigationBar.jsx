@@ -10,7 +10,7 @@ import './NavigationBar.css';
 const NavigationBar = ({ basename, theme, toggleTheme }) => {
 
   return (
-    <Navbar id="navigation-bar" collapseOnSelect sticky="top" expand="lg" bg={theme} variant={theme}>
+    <Navbar id="navigation-bar" collapseOnSelect expand="lg" bg={theme} variant={theme}>
       <Navbar.Brand href={`${basename}`}>
         <img
           src={`${basename}/logo.gif`}
