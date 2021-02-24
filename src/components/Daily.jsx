@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend, Brush } from 'recharts';
 import './Dashboard.css';
 import { Loading } from "./Loading";
-import { darkTheme } from './Themes';
+import CustomBarChart from "./charts/BarChart/CustomBarChart"
 
-import categoryColor from "./colors/colorsConsts";
 const BASE_URL = 'https://disease.sh';
 const days = 'all';
 
 
 function Daily(props) {
+  const opts = props.opts;
   const [country, setCountry] = useState(props.country);
   const [isLoaded, setIsLoaded] = useState(false);
   const [countryData, setCountryData] = useState(undefined);
@@ -86,6 +85,12 @@ function Daily(props) {
     if (!isLoaded) fetchCountryData(props.country);
   }, [isLoaded, country, props.country])
 
+  function toPrint(opts) {
+    // return only the opts to be displayed
+    let res = [];
+    for (let o in opts) opts[o] && res.push(o);
+    return res;
+  }
 
   if (!isLoaded || !countryData) {
     return (
@@ -95,26 +100,15 @@ function Daily(props) {
     )
   } else {
     return (
-      <>
-        <h1>Daily Cases</h1>
-        <ResponsiveContainer width='100%' height={500} >
-          <BarChart margin={{ left: 25, right: 4 }} data={countryData}>
-            <Tooltip formatter={(value) => new Intl.NumberFormat('it').format(value)} />
-            <XAxis dataKey="date"></XAxis>
-            <YAxis type="number" tickFormatter={(value) => new Intl.NumberFormat('it').format(value)} ></YAxis>
-            <Legend />
-            <Brush dataKey="date" stroke={props.theme === "dark" ? darkTheme.text : ""} fill={props.theme === "dark" ? darkTheme.backround : "#fff"} />
-            <Bar dataKey="cases" name={'cases'} key={'cases'} fill={categoryColor['cases']} />
-            <Bar dataKey="deaths" name={'deaths'} key={'deaths'} fill={categoryColor['deaths']} />
-            <Bar dataKey="recovered" name={'recovered'} key={'recovered'} fill={categoryColor['recovered']} />
-          </BarChart>
-        </ResponsiveContainer>
-      </>
+      <div className="mt-3">
+        <CustomBarChart theme={props.theme} countryData={countryData} toPrint={toPrint(opts)} />
+      </div>
     );
   }
 }
 
 Daily.propTypes = {
+  opts: PropTypes.objectOf(PropTypes.bool),
   theme: PropTypes.string,
   country: PropTypes.string.isRequired,
 }
