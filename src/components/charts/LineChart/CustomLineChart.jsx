@@ -8,7 +8,7 @@ import categoryColor from '../../colors/colorsConsts';
 
 function CustomLineCharts(props) {
   const countryData = props.data;
-  countryData.map(c => console.log(c));
+
   return (
     <div className="chart-container">
       <ResponsiveContainer width='100%' height={500} >

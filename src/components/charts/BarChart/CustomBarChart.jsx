@@ -11,7 +11,7 @@ function CustomBarChart(props) {
   const countryData = props.countryData;
   const toPrint = props.toPrint;
 
-  console.log(toPrint)
+
   return (
     <div className="chart-container">
       <ResponsiveContainer width='100%' height={500} >
