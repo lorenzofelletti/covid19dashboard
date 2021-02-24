@@ -24,7 +24,7 @@ const ChartOptions = (props) => {
             className="mr-2"
             defaultChecked={state.cases}
             value={state.cases}
-            onChange={setState({ ...state, cases: !state.cases })}
+            onChange={() => setState({ ...state, cases: !state.cases })}
           />
           <Form.Check
             custom
@@ -34,7 +34,7 @@ const ChartOptions = (props) => {
             className="mr-2"
             defaultChecked={state.deaths}
             value={state.deaths}
-            onChange={setState({ ...state, deaths: !state.deaths })}
+            onChange={() => setState({ ...state, deaths: !state.deaths })}
           />
           <Form.Check
             custom
@@ -43,7 +43,7 @@ const ChartOptions = (props) => {
             id="recoveredOpt"
             defaultChecked={state.recovered}
             value={state.recovered}
-            onChange={setState({ ...state, recovered: !state.recovered })}
+            onChange={() => setState({ ...state, recovered: !state.recovered })}
           />
         </Form.Row>
       </Form.Group>
