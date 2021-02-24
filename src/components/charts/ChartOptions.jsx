@@ -16,6 +16,7 @@ const ChartOptions = (props) => {
   return (
     <Form inline>
       <Form.Group controlId="chartsOptions" >
+        <Form.Row>
         <Form.Check
           custom
           type="switch"
@@ -45,6 +46,7 @@ const ChartOptions = (props) => {
           value={state.recovered}
           onChange={evt => {console.log(evt.target.value);setState({ ...state, recovered: !state.recovered })}}
         />
+        </Form.Row>
       </Form.Group>
     </Form>
   )
