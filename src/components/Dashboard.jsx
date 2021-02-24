@@ -15,9 +15,9 @@ const defaultCountry = 'Italy';
 
 function Dashboard(props) {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [countries, setCountries] = useState();
+  const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState(defaultCountry);
-  const [options, setOptions] = useState({cases: true, deaths: true, recovered: false})
+  const [options, setOptions] = useState({ cases: true, deaths: true, recovered: false })
 
   let tabsClassName = 'mt-3 ';
   let tabClassName = '';
@@ -41,7 +41,6 @@ function Dashboard(props) {
             countries.countries.push(d.country);
           });
           setCountries(countries);
-          setCountry(defaultCountry);
         },
         (e) => {
           console.error(e);
@@ -51,7 +50,7 @@ function Dashboard(props) {
 
   useEffect(() => {
     if (!isLoaded) fetchCountries('cases');
-  }, [isLoaded, country]);
+  }, [isLoaded]);
 
   if (countries && country) {
     return (
