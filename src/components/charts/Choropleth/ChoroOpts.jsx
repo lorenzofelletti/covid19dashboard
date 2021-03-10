@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Row } from 'react-bootstrap';
-import './ChoroOpts.css';
+import { Form, Col } from 'react-bootstrap';
+// import './ChoroOpts.css';
 
 const ChoroOpts = ({ opts, changeOpts, defaultOpt }) => {
   const [state, _setState] = useState();
@@ -24,13 +24,14 @@ const ChoroOpts = ({ opts, changeOpts, defaultOpt }) => {
     _setState(newState);
   };
 
+  // returned empty befor state is set!
   if (!state) {
     return (
-      <div className="" style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <Form inline style={{ width: 'min-content' }}>
-          <Form.Group controlId="chartOpts">
-            <Form.Row>
-              {opts.map((opt) => (
+      <Form inline>
+        <Form.Group controlId="chartOpts">
+          <Form.Row>
+            {opts.map((opt) => (
+              <Col sm>
                 <Form.Check
                   custom
                   inline
@@ -38,32 +39,35 @@ const ChoroOpts = ({ opts, changeOpts, defaultOpt }) => {
                   label={opt}
                   id={`${opt}Id`}
                   key={`${opt}Key`}
-                  className="mr-2 radioCheck"
-                  style={{ width: 'min-content' }}
                 />
-              ))}
-            </Form.Row>
-          </Form.Group>
-        </Form>
-      </div>
+              </Col>
+            ))}
+          </Form.Row>
+        </Form.Group>
+      </Form>
     );
   }
 
+  // "actual" component
   return (
     <Form inline>
-      <Form.Group controlId="chartOpts" as={Row}>
-        {opts.map((opt) => (
-          <Form.Check
-            type="radio"
-            label={opt}
-            id={`${opt}Id`}
-            key={`${opt}Key`}
-            name="opts"
-            className="mr-2"
-            defaultChecked={opt === defaultOpt}
-            onChange={() => setState(opt)}
-          />
-        ))}
+      <Form.Group controlId="chartOpts">
+        <Form.Row>
+          {opts.map((opt) => (
+            <Col>
+              <Form.Check
+                type="radio"
+                label={opt}
+                id={`${opt}Id`}
+                key={`${opt}Key`}
+                name="opts"
+                className="mr-2"
+                defaultChecked={opt === defaultOpt}
+                onChange={() => setState(opt)}
+              />
+            </Col>
+          ))}
+        </Form.Row>
       </Form.Group>
     </Form>
   );
