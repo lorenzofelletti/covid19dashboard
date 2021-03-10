@@ -1,31 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend, Brush } from 'recharts';
+import {
+  BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Bar, Legend, Brush,
+} from 'recharts';
 
 import { darkTheme } from '../../Themes';
-import categoryColor from "../../colors/colorsConsts";
-import "./CustomBarChart.css"
+import categoryColor from '../../colors/colorsConsts';
+import './CustomBarChart.css';
 
 function CustomBarChart(props) {
-  const countryData = props.countryData;
-  const toPrint = props.toPrint;
-
+  const { countryData } = props;
+  const { toPrint } = props;
+  const { theme } = props;
 
   return (
     <div className="chart-container">
-      <ResponsiveContainer width='100%' height={500} >
+      <ResponsiveContainer width="100%" height={500}>
         <BarChart margin={{ left: 25, right: 4 }} data={countryData}>
           <Tooltip formatter={(value) => new Intl.NumberFormat('it').format(value)} />
-          <XAxis dataKey="date"></XAxis>
-          <YAxis type="number" tickFormatter={(value) => new Intl.NumberFormat('it').format(value)} ></YAxis>
+          <XAxis dataKey="date" />
+          <YAxis type="number" tickFormatter={(value) => new Intl.NumberFormat('it').format(value)} />
           <Legend />
           <Brush
             dataKey="date"
-            stroke={props.theme === "dark" ? darkTheme.text : ""}
-            fill={props.theme === "dark" ? darkTheme.backround : "#fff"}
+            stroke={theme === 'dark' ? darkTheme.text : ''}
+            fill={theme === 'dark' ? darkTheme.backround : '#fff'}
           />
-          {toPrint.map(c => (<Bar dataKey={c} name={c} key={c} fill={categoryColor[c]} />))}
+          {toPrint.map((c) => (<Bar dataKey={c} name={c} key={c} fill={categoryColor[c]} />))}
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -33,9 +35,14 @@ function CustomBarChart(props) {
 }
 
 CustomBarChart.propTypes = {
-  countryData: PropTypes.arrayOf(PropTypes.object),
+  countryData: PropTypes.arrayOf(PropTypes.object).isRequired,
   theme: PropTypes.string,
-  toPrint: PropTypes.arrayOf(PropTypes.string)
-}
+  toPrint: PropTypes.arrayOf(PropTypes.string),
+};
+
+CustomBarChart.defaultProps = {
+  theme: 'light',
+  toPrint: [],
+};
 
 export default CustomBarChart;

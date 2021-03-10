@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 
 import { Form } from 'react-bootstrap';
 
-const ChartOptions = (props) => {
-  const [state, _setState] = useState(props.opts);
+const ChartOptions = ({ opts, changeOpts }) => {
+  const [state, _setState] = useState(opts);
 
-  const setState = (state) => {
-    props.changeOpts(state);
-    _setState(state);
-  }
-
+  const setState = (s) => {
+    changeOpts(s);
+    _setState(s);
+  };
 
   return (
     <Form inline>
-      <Form.Group controlId="chartsOptions" >
+      <Form.Group controlId="chartsOptions">
         <Form.Row>
           <Form.Check
             custom
@@ -48,12 +47,12 @@ const ChartOptions = (props) => {
         </Form.Row>
       </Form.Group>
     </Form>
-  )
-}
+  );
+};
 
 ChartOptions.propTypes = {
-  opts: PropTypes.objectOf(PropTypes.bool),
-  changeOpts: PropTypes.func
-}
+  opts: PropTypes.objectOf(PropTypes.bool).isRequired,
+  changeOpts: PropTypes.func.isRequired,
+};
 
 export default ChartOptions;
