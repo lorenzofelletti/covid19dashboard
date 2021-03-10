@@ -1,62 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import { toast } from 'react-toastify';
 import './Dashboard.css';
-import { Loading } from "./Loading";
-import CustomBarChart from "./charts/BarChart/CustomBarChart"
+import Loading from './Loading';
+import CustomBarChart from './charts/BarChart/CustomBarChart';
 
 const BASE_URL = 'https://disease.sh';
 const days = 'all';
 
-
 function Daily(props) {
-  const opts = props.opts;
-  const [country, setCountry] = useState(props.country);
+  const { theme, opts, country } = props;
+  // const [currCountry, setCurrCountry] = useState(country);
   const [isLoaded, setIsLoaded] = useState(false);
   const [countryData, setCountryData] = useState(undefined);
 
-  function fetchCountryData(country) {
-    if (!country) return;
-    fetch(`${BASE_URL}/v3/covid-19/historical/${country}?lastdays=${days}`, {
+  function fetchCountryData(countryToFetch) {
+    if (!countryToFetch) return;
+    fetch(`${BASE_URL}/v3/covid-19/historical/${countryToFetch}?lastdays=${days}`, {
       headers: {
-        'accept': 'application/json'
-      }
+        accept: 'application/json',
+      },
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (result) => {
-          if (result.timeline &&
-            result.timeline.cases &&
-            result.timeline.deaths &&
-            result.timeline.recovered) {
-
+          if (result?.timeline?.cases
+            && result?.timeline?.deaths
+            && result?.timeline?.recovered) {
             let countryDataFormatted = [];
-            for (let [category, values] of Object.entries(result.timeline)) {
-              let cat = { name: category, data: [] };
-              for (let [date, number] of Object.entries(values)) {
+            // eslint-disable-next-line no-restricted-syntax
+            for (const [category, values] of Object.entries(result.timeline)) {
+              const cat = { name: category, data: [] };
+              // eslint-disable-next-line no-restricted-syntax
+              for (const [date, number] of Object.entries(values)) {
                 cat.data.push({
-                  date: date,
-                  number: number
+                  date,
+                  number,
                 });
               }
               countryDataFormatted.push(cat);
             }
 
-            countryDataFormatted.forEach(elem => {
+            countryDataFormatted.forEach((elem) => {
               let prev = 0;
               let curr = 0;
-              for (let e of elem.data) {
+              // eslint-disable-next-line no-restricted-syntax
+              for (const e of elem.data) {
                 curr = e.number;
                 e.number = (e.number - prev > 0) ? e.number - prev : 0;
                 prev = curr;
               }
             });
-            let dataCases = countryDataFormatted[0].data;
-            let dataDeaths = countryDataFormatted[1].data;
-            let dataRecovered = countryDataFormatted[2].data;
-            let dataFinal = [];
-            for (let i = 0; i < dataCases.length && dataRecovered.length && dataDeaths.length; i++) {
-              let datum = { date: dataCases[i].date };
+            const dataCases = countryDataFormatted[0].data;
+            const dataDeaths = countryDataFormatted[1].data;
+            const dataRecovered = countryDataFormatted[2].data;
+            const dataFinal = [];
+            /* && dataRecovered.length && dataDeaths.length was here:
+            for( ... ; ... here ; ...) */
+            for (let i = 0; i < dataCases.length; i++) {
+              const datum = { date: dataCases[i].date };
               datum.cases = dataCases[i].number;
               datum.recovered = dataRecovered[i].number;
               datum.deaths = dataDeaths[i].number;
@@ -65,30 +67,32 @@ function Daily(props) {
             countryDataFormatted = dataFinal;
             setIsLoaded(true);
             setCountryData(countryDataFormatted);
-          }
-          else {
-            console.error("Bad format response.");
+          } else {
+            toast('Bad response format.', {
+              type: 'error',
+              position: 'top-right',
+            });
           }
         },
-        (e) => {
-          console.error(e);
-        }
-      )
+        () => {
+          toast('Failed to fetch', {
+            type: 'error',
+            position: 'top-right',
+          });
+        },
+      );
   }
 
-
   useEffect(() => {
-    if (props.country !== country) {
-      setCountry(props.country);
-      setIsLoaded(false);
-    }
-    if (!isLoaded) fetchCountryData(props.country);
-  }, [isLoaded, country, props.country])
+    fetchCountryData(country);
+  }, [country]);
 
-  function toPrint(opts) {
-    // return only the opts to be displayed
-    let res = [];
-    for (let o in opts) opts[o] && res.push(o);
+  /** Return only the opts to be displayed
+   *  remember that unwanted options are falsy. */
+  function toPrint(optsToPrint) {
+    const res = [];
+    // eslint-disable-next-line no-restricted-syntax, guard-for-in, no-unused-expressions
+    for (const o in optsToPrint) optsToPrint[o] && res.push(o);
     return res;
   }
 
@@ -97,20 +101,19 @@ function Daily(props) {
       <>
         <Loading />
       </>
-    )
-  } else {
-    return (
-      <div className="mt-3">
-        <CustomBarChart theme={props.theme} countryData={countryData} toPrint={toPrint(opts)} />
-      </div>
     );
   }
+  return (
+    <div className="mt-3">
+      <CustomBarChart theme={theme} countryData={countryData} toPrint={toPrint(opts)} />
+    </div>
+  );
 }
 
 Daily.propTypes = {
-  opts: PropTypes.objectOf(PropTypes.bool),
-  theme: PropTypes.string,
+  opts: PropTypes.objectOf(PropTypes.bool).isRequired,
+  theme: PropTypes.string.isRequired,
   country: PropTypes.string.isRequired,
-}
+};
 
 export default React.memo(Daily);
