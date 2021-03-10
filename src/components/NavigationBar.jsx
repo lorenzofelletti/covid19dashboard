@@ -24,9 +24,9 @@ const NavigationBar = ({ basename, theme, toggleTheme }) => (
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="mr-auto">
         <Nav.Link href={`${basename}`}>Dashboard</Nav.Link>
-        <Nav.Link href={`${basename}/#/vaccine`}>Vaccine</Nav.Link>
-        <Nav.Link href={`${basename}/#/about`}>About</Nav.Link>
+        <Nav.Link href={`${basename}/#/vaccine`}>Vaccines</Nav.Link>
         <Nav.Link href={`${basename}/#/map`}>Map</Nav.Link>
+        <Nav.Link href={`${basename}/#/about`}>About</Nav.Link>
       </Nav>
       <Form inline>
         <Button variant={(theme === 'light') ? 'dark' : 'light'} onClick={toggleTheme}>
