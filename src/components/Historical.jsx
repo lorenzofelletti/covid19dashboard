@@ -9,9 +9,7 @@ const BASE_URL = 'https://disease.sh';
 const days = 'all';
 
 function Historical(props) {
-  const { opts } = props;
-  const { theme } = props;
-  const [country, setCountry] = useState(props.country);
+  const { opts, theme, country } = props;
   const [isLoaded, setIsLoaded] = useState(false);
   const [countryData, setCountryData] = useState(undefined);
 
@@ -78,12 +76,8 @@ function Historical(props) {
   }
 
   useEffect(() => {
-    if (props.country !== country) {
-      setCountry(props.country);
-      setIsLoaded(false);
-    }
-    if (!isLoaded) fetchCountryData(props.country);
-  }, [isLoaded, country]);
+    fetchCountryData(country);
+  }, [country]);
 
   if (!isLoaded || !countryData) {
     return (
