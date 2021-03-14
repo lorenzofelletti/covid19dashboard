@@ -10,7 +10,6 @@ const days = 'all';
 
 function Daily(props) {
   const { theme, opts, country } = props;
-  // const [currCountry, setCurrCountry] = useState(country);
   const [isLoaded, setIsLoaded] = useState(false);
   const [countryData, setCountryData] = useState(undefined);
 
