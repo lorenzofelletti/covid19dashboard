@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import {
   LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, Line, Legend, Brush,
 } from 'recharts';
@@ -47,7 +48,11 @@ function CustomLineCharts({ data, theme }) {
 
 CustomLineCharts.propTypes = {
   data: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-  theme: PropTypes.string.isRequired,
+  theme: PropTypes.string,
+};
+
+CustomLineCharts.defaultProps = {
+  theme: 'light',
 };
 
 export default CustomLineCharts;
