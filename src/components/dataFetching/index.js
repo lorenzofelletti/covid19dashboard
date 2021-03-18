@@ -1,3 +1,13 @@
-import { basename, fetchVaccineData, fetchGeoMapData } from './dataFetching';
+import {
+  basename,
+  fetchVaccineCountries,
+  fetchVaccineData,
+  fetchGeoMapData,
+} from './dataFetching';
 
-export { basename, fetchVaccineData, fetchGeoMapData };
+export {
+  basename,
+  fetchVaccineCountries,
+  fetchVaccineData,
+  fetchGeoMapData,
+};

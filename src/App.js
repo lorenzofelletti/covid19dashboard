@@ -11,7 +11,7 @@ import Dashboard from './components/Dashboard';
 import About from './components/About';
 import NavigationBar from './components/NavigationBar';
 import useDarkMode from './components/useDarkMode';
-import Vaccine from './components/Vaccine';
+import Vaccine from './components/Pages/Vaccines/Vaccine';
 import WorldMap from './components/WorldMap';
 
 const BASENAME = '/covid19dashboard';

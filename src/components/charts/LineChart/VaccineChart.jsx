@@ -8,6 +8,7 @@ import './CustomLineChart.css';
 import { darkTheme } from '../../Themes';
 
 function formatDate(d) {
+  if (!(d instanceof Date)) return '';
   return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear() - 2000}`;
 }
 
@@ -49,8 +50,12 @@ function VaccineChart({ data, theme }) {
 }
 
 VaccineChart.propTypes = {
-  data: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-  theme: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  theme: PropTypes.string,
+};
+
+VaccineChart.defaultProps = {
+  theme: 'light',
 };
 
 export default VaccineChart;
