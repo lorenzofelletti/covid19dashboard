@@ -41,7 +41,7 @@ function Vaccine(props) {
   if (!countries) {
     return (
       <div>
-        <Loading />
+        <Loading theme={theme} />
       </div>
     );
   }

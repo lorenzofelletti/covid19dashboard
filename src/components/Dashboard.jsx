@@ -91,7 +91,7 @@ function Dashboard({ theme }) {
         <div className="flex-container">
           <Form className="mt-3">
             <Form.Group as={Form.Row} controlId="country">
-              <Form.Label column sm={4}>Selected Country</Form.Label>
+              <Form.Label column sm={4}>Country</Form.Label>
               <Col sm={6}>
                 <Form.Control
                   as="select"
