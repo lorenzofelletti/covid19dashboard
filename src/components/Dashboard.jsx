@@ -142,7 +142,7 @@ function Dashboard({ theme }) {
       </>
     );
   }
-  return (<Loading />);
+  return (<Loading theme={theme} />);
 }
 
 Dashboard.propTypes = {

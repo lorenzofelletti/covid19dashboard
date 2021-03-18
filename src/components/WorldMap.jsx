@@ -39,7 +39,7 @@ export default function WorldMap({ theme }) {
     return Math.min(max, categoryRelMaxValues[_category]);
   };
 
-  if (!loaded) return (<Loading />);
+  if (!loaded) return (<Loading theme={theme} />);
 
   return (
     <>

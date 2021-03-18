@@ -24,7 +24,7 @@ function Vaccine(props) {
     return (
       <div>
         <h1>Vaccines</h1>
-        <Loading />
+        <Loading theme={theme} />
       </div>
     );
   }

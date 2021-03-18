@@ -98,7 +98,7 @@ function Daily(props) {
   if (!isLoaded || !countryData) {
     return (
       <>
-        <Loading />
+        <Loading theme={theme} />
       </>
     );
   }

@@ -82,7 +82,7 @@ function Historical(props) {
   if (!isLoaded || !countryData) {
     return (
       <>
-        <Loading />
+        <Loading theme={theme} />
       </>
     );
   }
